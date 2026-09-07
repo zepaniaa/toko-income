@@ -6,11 +6,11 @@ include "../config/database.php";
 
 /*
 |--------------------------------------------------------------------------
-| BUAT TABEL PENGATURAN JIKA BELUM ADA
+| BUAT TABEL PENGATURAN
 |--------------------------------------------------------------------------
 */
 
-mysqli_query($conn, "
+$query_create = mysqli_query($conn, "
     CREATE TABLE IF NOT EXISTS pengaturan (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nama_toko VARCHAR(150) NOT NULL DEFAULT 'Toko Income',
@@ -24,18 +24,38 @@ mysqli_query($conn, "
 
 /*
 |--------------------------------------------------------------------------
-| BUAT DATA DEFAULT JIKA BELUM ADA
+| CEK DATA PENGATURAN
 |--------------------------------------------------------------------------
 */
 
-$cek_pengaturan = mysqli_query(
+$query_cek = mysqli_query(
     $conn,
-    "SELECT id FROM pengaturan LIMIT 1"
+    "SELECT * FROM pengaturan ORDER BY id ASC LIMIT 1"
 );
 
-if (mysqli_num_rows($cek_pengaturan) == 0) {
 
-    mysqli_query($conn, "
+if (!$query_cek) {
+
+    die(
+        "Error database: " .
+        mysqli_error($conn)
+    );
+
+}
+
+
+$pengaturan = mysqli_fetch_assoc($query_cek);
+
+
+/*
+|--------------------------------------------------------------------------
+| BUAT DATA DEFAULT
+|--------------------------------------------------------------------------
+*/
+
+if (!$pengaturan) {
+
+    $insert = mysqli_query($conn, "
         INSERT INTO pengaturan
         (
             nama_toko,
@@ -53,6 +73,28 @@ if (mysqli_num_rows($cek_pengaturan) == 0) {
             ''
         )
     ");
+
+
+    if (!$insert) {
+
+        die(
+            "Gagal membuat pengaturan: " .
+            mysqli_error($conn)
+        );
+
+    }
+
+
+    $query_cek = mysqli_query(
+        $conn,
+        "SELECT * FROM pengaturan ORDER BY id ASC LIMIT 1"
+    );
+
+
+    $pengaturan = mysqli_fetch_assoc(
+        $query_cek
+    );
+
 }
 
 
@@ -68,11 +110,30 @@ $tipe_pesan = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nama_toko = trim($_POST['nama_toko'] ?? '');
-    $nama_aplikasi = trim($_POST['nama_aplikasi'] ?? '');
-    $alamat = trim($_POST['alamat'] ?? '');
-    $telepon = trim($_POST['telepon'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+
+    $nama_toko = trim(
+        $_POST['nama_toko'] ?? ''
+    );
+
+
+    $nama_aplikasi = trim(
+        $_POST['nama_aplikasi'] ?? ''
+    );
+
+
+    $alamat = trim(
+        $_POST['alamat'] ?? ''
+    );
+
+
+    $telepon = trim(
+        $_POST['telepon'] ?? ''
+    );
+
+
+    $email = trim(
+        $_POST['email'] ?? ''
+    );
 
 
     /*
@@ -96,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /*
         |--------------------------------------------------------------------------
-        | UPDATE DATABASE
+        | UPDATE
         |--------------------------------------------------------------------------
         */
 
@@ -108,30 +169,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 alamat = ?,
                 telepon = ?,
                 email = ?
-            WHERE id = 1
+            WHERE id = ?
         ");
+
+
+        if (!$stmt) {
+
+            die(
+                "Gagal menyiapkan query: " .
+                mysqli_error($conn)
+            );
+
+        }
+
+
+        $id_pengaturan = $pengaturan['id'];
 
 
         mysqli_stmt_bind_param(
             $stmt,
-            "sssss",
+            "sssssi",
             $nama_toko,
             $nama_aplikasi,
             $alamat,
             $telepon,
-            $email
+            $email,
+            $id_pengaturan
         );
 
 
-        if (mysqli_stmt_execute($stmt)) {
+        if (
+            mysqli_stmt_execute(
+                $stmt
+            )
+        ) {
 
-            $pesan = "Pengaturan berhasil disimpan.";
-            $tipe_pesan = "success";
+            $pesan =
+                "Pengaturan berhasil disimpan.";
+
+            $tipe_pesan =
+                "success";
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | AMBIL DATA TERBARU
+            |--------------------------------------------------------------------------
+            */
+
+            $query_terbaru = mysqli_query(
+                $conn,
+                "SELECT * FROM pengaturan WHERE id = $id_pengaturan LIMIT 1"
+            );
+
+
+            $pengaturan =
+                mysqli_fetch_assoc(
+                    $query_terbaru
+                );
 
         } else {
 
-            $pesan = "Gagal menyimpan pengaturan.";
-            $tipe_pesan = "danger";
+            $pesan =
+                "Gagal menyimpan pengaturan: " .
+                mysqli_stmt_error($stmt);
+
+            $tipe_pesan =
+                "danger";
 
         }
 
@@ -145,23 +249,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 /*
 |--------------------------------------------------------------------------
-| AMBIL DATA PENGATURAN
+| DATA UNTUK TAMPILAN
 |--------------------------------------------------------------------------
 */
 
-$query_pengaturan = mysqli_query(
-    $conn,
-    "SELECT * FROM pengaturan WHERE id = 1 LIMIT 1"
-);
+$nama_toko =
+    $pengaturan['nama_toko']
+    ?? 'Toko Income';
 
-$pengaturan = mysqli_fetch_assoc(
-    $query_pengaturan
-);
 
+$nama_aplikasi =
+    $pengaturan['nama_aplikasi']
+    ?? 'Toko Income Management System';
+
+
+$alamat =
+    $pengaturan['alamat']
+    ?? '';
+
+
+$telepon =
+    $pengaturan['telepon']
+    ?? '';
+
+
+$email =
+    $pengaturan['email']
+    ?? '';
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -174,13 +293,9 @@ $pengaturan = mysqli_fetch_assoc(
     >
 
     <title>
-        Pengaturan - <?= htmlspecialchars(
-            $pengaturan['nama_toko']
-        ); ?>
+        Pengaturan - <?= htmlspecialchars($nama_toko); ?>
     </title>
 
-
-    <!-- Bootstrap -->
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -188,15 +303,11 @@ $pengaturan = mysqli_fetch_assoc(
     >
 
 
-    <!-- Bootstrap Icons -->
-
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-
-    <!-- Custom CSS -->
 
     <link
         rel="stylesheet"
@@ -360,8 +471,6 @@ $pengaturan = mysqli_fetch_assoc(
 
             padding: 18px;
 
-            color: #475569;
-
         }
 
 
@@ -415,7 +524,6 @@ $pengaturan = mysqli_fetch_assoc(
 
         }
 
-
     </style>
 
 </head>
@@ -424,14 +532,10 @@ $pengaturan = mysqli_fetch_assoc(
 <body>
 
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
-
-    <!-- BRAND -->
 
     <div class="brand">
 
@@ -446,18 +550,14 @@ $pengaturan = mysqli_fetch_assoc(
 
             <div class="brand-title">
 
-                <?= htmlspecialchars(
-                    $pengaturan['nama_toko']
-                ); ?>
+                <?= htmlspecialchars($nama_toko); ?>
 
             </div>
 
 
             <div class="brand-subtitle">
 
-                <?= htmlspecialchars(
-                    $pengaturan['nama_aplikasi']
-                ); ?>
+                <?= htmlspecialchars($nama_aplikasi); ?>
 
             </div>
 
@@ -466,12 +566,8 @@ $pengaturan = mysqli_fetch_assoc(
     </div>
 
 
-    <!-- MENU UTAMA -->
-
     <div class="menu-title">
-
         MENU UTAMA
-
     </div>
 
 
@@ -497,12 +593,8 @@ $pengaturan = mysqli_fetch_assoc(
     </a>
 
 
-    <!-- LAPORAN -->
-
     <div class="menu-title">
-
         LAPORAN
-
     </div>
 
 
@@ -539,12 +631,8 @@ $pengaturan = mysqli_fetch_assoc(
     </a>
 
 
-    <!-- SISTEM -->
-
     <div class="menu-title">
-
         SISTEM
-
     </div>
 
 
@@ -565,15 +653,10 @@ $pengaturan = mysqli_fetch_assoc(
 </aside>
 
 
-
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
+<!-- MAIN -->
 
 <main class="main-content">
 
-
-    <!-- TOP NAVBAR -->
 
     <header class="top-navbar">
 
@@ -595,15 +678,12 @@ $pengaturan = mysqli_fetch_assoc(
         </div>
 
 
-        <!-- USER -->
-
         <div class="dropdown">
 
             <button
                 class="user-button dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
             >
 
                 <span class="user-avatar">
@@ -645,23 +725,19 @@ $pengaturan = mysqli_fetch_assoc(
 
         </div>
 
-
     </header>
 
 
+    <!-- ALERT -->
 
-    <!-- =================================================
-         ALERT
-    ================================================== -->
-
-    <?php if ($pesan !== ""): ?>
+    <?php if ($pesan !== ''): ?>
 
         <div
-            class="alert alert-<?= $tipe_pesan; ?> alert-dismissible fade show"
+            class="alert alert-<?= htmlspecialchars($tipe_pesan); ?> alert-dismissible fade show"
             role="alert"
         >
 
-            <?php if ($tipe_pesan === "success"): ?>
+            <?php if ($tipe_pesan === 'success'): ?>
 
                 <i class="bi bi-check-circle-fill me-2"></i>
 
@@ -686,15 +762,12 @@ $pengaturan = mysqli_fetch_assoc(
     <?php endif; ?>
 
 
-
-    <!-- =================================================
-         ROW
-    ================================================== -->
+    <!-- CONTENT -->
 
     <div class="row g-4">
 
 
-        <!-- FORM PENGATURAN -->
+        <!-- FORM -->
 
         <div class="col-xl-8">
 
@@ -725,14 +798,8 @@ $pengaturan = mysqli_fetch_assoc(
                 </div>
 
 
+                <form method="POST">
 
-                <form
-                    method="POST"
-                    action=""
-                >
-
-
-                    <!-- NAMA TOKO -->
 
                     <div class="mb-4">
 
@@ -740,9 +807,7 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-label"
                             for="nama_toko"
                         >
-
                             Nama Toko
-
                         </label>
 
 
@@ -751,19 +816,12 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-control"
                             id="nama_toko"
                             name="nama_toko"
-                            value="<?= htmlspecialchars(
-                                $pengaturan['nama_toko']
-                            ); ?>"
-                            placeholder="Contoh: Toko Sejahtera"
+                            value="<?= htmlspecialchars($nama_toko); ?>"
                             required
                         >
 
-
                     </div>
 
-
-
-                    <!-- NAMA APLIKASI -->
 
                     <div class="mb-4">
 
@@ -771,9 +829,7 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-label"
                             for="nama_aplikasi"
                         >
-
                             Nama Aplikasi
-
                         </label>
 
 
@@ -782,19 +838,12 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-control"
                             id="nama_aplikasi"
                             name="nama_aplikasi"
-                            value="<?= htmlspecialchars(
-                                $pengaturan['nama_aplikasi']
-                            ); ?>"
-                            placeholder="Contoh: Management System"
+                            value="<?= htmlspecialchars($nama_aplikasi); ?>"
                             required
                         >
 
-
                     </div>
 
-
-
-                    <!-- ALAMAT -->
 
                     <div class="mb-4">
 
@@ -802,9 +851,7 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-label"
                             for="alamat"
                         >
-
                             Alamat Toko
-
                         </label>
 
 
@@ -812,17 +859,10 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-control"
                             id="alamat"
                             name="alamat"
-                            placeholder="Masukkan alamat toko"
-                        ><?= htmlspecialchars(
-                            $pengaturan['alamat']
-                        ); ?></textarea>
-
+                        ><?= htmlspecialchars($alamat); ?></textarea>
 
                     </div>
 
-
-
-                    <!-- TELEPON -->
 
                     <div class="mb-4">
 
@@ -830,9 +870,7 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-label"
                             for="telepon"
                         >
-
                             Nomor Telepon
-
                         </label>
 
 
@@ -841,18 +879,11 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-control"
                             id="telepon"
                             name="telepon"
-                            value="<?= htmlspecialchars(
-                                $pengaturan['telepon']
-                            ); ?>"
-                            placeholder="Contoh: 081234567890"
+                            value="<?= htmlspecialchars($telepon); ?>"
                         >
-
 
                     </div>
 
-
-
-                    <!-- EMAIL -->
 
                     <div class="mb-4">
 
@@ -860,9 +891,7 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-label"
                             for="email"
                         >
-
                             Email Toko
-
                         </label>
 
 
@@ -871,18 +900,11 @@ $pengaturan = mysqli_fetch_assoc(
                             class="form-control"
                             id="email"
                             name="email"
-                            value="<?= htmlspecialchars(
-                                $pengaturan['email']
-                            ); ?>"
-                            placeholder="Contoh: toko@email.com"
+                            value="<?= htmlspecialchars($email); ?>"
                         >
-
 
                     </div>
 
-
-
-                    <!-- BUTTON -->
 
                     <div class="d-flex justify-content-end">
 
@@ -906,7 +928,6 @@ $pengaturan = mysqli_fetch_assoc(
             </div>
 
         </div>
-
 
 
         <!-- PREVIEW -->
@@ -940,11 +961,8 @@ $pengaturan = mysqli_fetch_assoc(
                 </div>
 
 
-
                 <div class="info-box">
 
-
-                    <!-- TOKO -->
 
                     <div class="info-box-item">
 
@@ -957,20 +975,13 @@ $pengaturan = mysqli_fetch_assoc(
                             </div>
 
                             <div class="info-value">
-
-                                <?= htmlspecialchars(
-                                    $pengaturan['nama_toko']
-                                ); ?>
-
+                                <?= htmlspecialchars($nama_toko); ?>
                             </div>
 
                         </div>
 
                     </div>
 
-
-
-                    <!-- APLIKASI -->
 
                     <div class="info-box-item">
 
@@ -983,20 +994,13 @@ $pengaturan = mysqli_fetch_assoc(
                             </div>
 
                             <div class="info-value">
-
-                                <?= htmlspecialchars(
-                                    $pengaturan['nama_aplikasi']
-                                ); ?>
-
+                                <?= htmlspecialchars($nama_aplikasi); ?>
                             </div>
 
                         </div>
 
                     </div>
 
-
-
-                    <!-- ALAMAT -->
 
                     <div class="info-box-item">
 
@@ -1010,11 +1014,9 @@ $pengaturan = mysqli_fetch_assoc(
 
                             <div class="info-value">
 
-                                <?= $pengaturan['alamat'] !== ''
+                                <?= $alamat !== ''
                                     ? nl2br(
-                                        htmlspecialchars(
-                                            $pengaturan['alamat']
-                                        )
+                                        htmlspecialchars($alamat)
                                     )
                                     : '-';
                                 ?>
@@ -1025,9 +1027,6 @@ $pengaturan = mysqli_fetch_assoc(
 
                     </div>
 
-
-
-                    <!-- TELEPON -->
 
                     <div class="info-box-item">
 
@@ -1041,10 +1040,8 @@ $pengaturan = mysqli_fetch_assoc(
 
                             <div class="info-value">
 
-                                <?= $pengaturan['telepon'] !== ''
-                                    ? htmlspecialchars(
-                                        $pengaturan['telepon']
-                                    )
+                                <?= $telepon !== ''
+                                    ? htmlspecialchars($telepon)
                                     : '-';
                                 ?>
 
@@ -1054,9 +1051,6 @@ $pengaturan = mysqli_fetch_assoc(
 
                     </div>
 
-
-
-                    <!-- EMAIL -->
 
                     <div class="info-box-item">
 
@@ -1070,10 +1064,8 @@ $pengaturan = mysqli_fetch_assoc(
 
                             <div class="info-value">
 
-                                <?= $pengaturan['email'] !== ''
-                                    ? htmlspecialchars(
-                                        $pengaturan['email']
-                                    )
+                                <?= $email !== ''
+                                    ? htmlspecialchars($email)
                                     : '-';
                                 ?>
 
@@ -1086,14 +1078,12 @@ $pengaturan = mysqli_fetch_assoc(
 
                 </div>
 
-
             </div>
 
         </div>
 
 
     </div>
-
 
 
     <!-- FOOTER -->
@@ -1104,18 +1094,14 @@ $pengaturan = mysqli_fetch_assoc(
 
             © <?= date('Y'); ?>
 
-            <?= htmlspecialchars(
-                $pengaturan['nama_toko']
-            ); ?>
+            <?= htmlspecialchars($nama_toko); ?>
 
         </span>
 
 
         <span>
 
-            <?= htmlspecialchars(
-                $pengaturan['nama_aplikasi']
-            ); ?>
+            <?= htmlspecialchars($nama_aplikasi); ?>
 
         </span>
 
@@ -1124,9 +1110,6 @@ $pengaturan = mysqli_fetch_assoc(
 
 </main>
 
-
-
-<!-- Bootstrap JS -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
