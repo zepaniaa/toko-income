@@ -534,123 +534,22 @@ $email =
 
 <!-- SIDEBAR -->
 
-<aside class="sidebar">
+<div class="sidebar">
+<div class="brand"><i class="bi bi-shop"></i> TOKO INCOME</div>
+<div class="menu-title">Menu Utama</div>
+<a href="../dashboard.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+<a href="../penghasilan/index.php"><i class="bi bi-cash-stack me-2"></i> Penghasilan</a>
+<a href="../pengeluaran/index.php"><i class="bi bi-wallet2 me-2"></i> Pengeluaran</a>
+<a href="../barang/index.php"><i class="bi bi-box-seam me-2"></i> Barang</a>
+<a href="../barang/stok.php"><i class="bi bi-clipboard-check me-2"></i> Pengecekan Stok</a>
 
-
-    <div class="brand">
-
-        <div class="brand-icon">
-
-            <i class="bi bi-shop"></i>
-
-        </div>
-
-
-        <div>
-
-            <div class="brand-title">
-
-                <?= htmlspecialchars($nama_toko); ?>
-
-            </div>
-
-
-            <div class="brand-subtitle">
-
-                <?= htmlspecialchars($nama_aplikasi); ?>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="menu-title">
-        MENU UTAMA
-    </div>
-
-
-    <a href="../dashboard.php">
-
-        <i class="bi bi-grid-1x2-fill"></i>
-
-        <span>
-            Dashboard
-        </span>
-
-    </a>
-
-
-    <a href="../penghasilan/index.php">
-
-        <i class="bi bi-wallet2"></i>
-
-        <span>
-            Penghasilan
-        </span>
-
-    </a>
-
-
-    <div class="menu-title">
-        LAPORAN
-    </div>
-
-
-    <a href="../laporan/harian.php">
-
-        <i class="bi bi-calendar-day"></i>
-
-        <span>
-            Laporan Harian
-        </span>
-
-    </a>
-
-
-    <a href="../laporan/bulanan.php">
-
-        <i class="bi bi-calendar-month"></i>
-
-        <span>
-            Laporan Bulanan
-        </span>
-
-    </a>
-
-
-    <a href="../laporan/tahunan.php">
-
-        <i class="bi bi-calendar3"></i>
-
-        <span>
-            Laporan Tahunan
-        </span>
-
-    </a>
-
-
-    <div class="menu-title">
-        SISTEM
-    </div>
-
-
-    <a
-        href="index.php"
-        class="active"
-    >
-
-        <i class="bi bi-gear"></i>
-
-        <span>
-            Pengaturan
-        </span>
-
-    </a>
-
-
-</aside>
+<div class="menu-title">Laporan</div>
+<a href="../laporan/harian.php"><i class="bi bi-calendar-day me-2"></i> Laporan Harian</a>
+<a href="../laporan/bulanan.php"><i class="bi bi-calendar-month me-2"></i> Laporan Bulanan</a>
+<a href="../laporan/tahunan.php"><i class="bi bi-calendar3 me-2"></i> Laporan Tahunan</a>
+<div class="menu-title">Sistem</div>
+<a href="../pengaturan/index.php" class="active"><i class="bi bi-gear me-2"></i> Pengaturan</a>
+</div>
 
 
 <!-- MAIN -->

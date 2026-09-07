@@ -1,0 +1,1 @@
+<?php include "../config/auth.php"; include "../config/database.php"; $id=(int)($_GET['id']??0); $st=mysqli_prepare($conn,"DELETE FROM pengeluaran WHERE id=?"); mysqli_stmt_bind_param($st,'i',$id); mysqli_stmt_execute($st); header('Location:index.php'); exit;

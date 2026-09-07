@@ -64,97 +64,21 @@ $query = mysqli_query($conn, "
 ===================================================== -->
 
 <div class="sidebar">
+<div class="brand"><i class="bi bi-shop"></i> TOKO INCOME</div>
+<div class="menu-title">Menu Utama</div>
+<a href="../dashboard.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+<a href="../penghasilan/index.php" class="active"><i class="bi bi-cash-stack me-2"></i> Penghasilan</a>
+<a href="../pengeluaran/index.php"><i class="bi bi-wallet2 me-2"></i> Pengeluaran</a>
+<a href="../barang/index.php"><i class="bi bi-box-seam me-2"></i> Barang</a>
+<a href="../barang/stok.php"><i class="bi bi-clipboard-check me-2"></i> Pengecekan Stok</a>
 
-
-    <div class="brand">
-
-        <i class="bi bi-shop"></i>
-
-        TOKO INCOME
-
-    </div>
-
-
-    <div class="menu-title">
-        Menu Utama
-    </div>
-
-
-    <a href="../dashboard.php">
-
-        <i class="bi bi-speedometer2 me-2"></i>
-
-        Dashboard
-
-    </a>
-
-
-    <a
-        href="index.php"
-        class="active"
-    >
-
-        <i class="bi bi-cash-stack me-2"></i>
-
-        Penghasilan
-
-    </a>
-
-
-    <div class="menu-title">
-        Laporan
-    </div>
-
-
-    <a href="../laporan/harian.php">
-
-        <i class="bi bi-calendar-day me-2"></i>
-
-        Laporan Harian
-
-    </a>
-
-
-    <a href="../laporan/bulanan.php">
-
-        <i class="bi bi-calendar-month me-2"></i>
-
-        Laporan Bulanan
-
-    </a>
-
-
-    <a href="../laporan/tahunan.php">
-
-        <i class="bi bi-calendar3 me-2"></i>
-
-        Laporan Tahunan
-
-    </a>
-
-
-    <div class="menu-title">
-        Sistem
-    </div>
-
-
-    <a href="#">
-
-        <i class="bi bi-gear me-2"></i>
-
-        Pengaturan
-
-    </a>
-
-
-</div>
-
-
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
-
-<div class="main-content">
+<div class="menu-title">Laporan</div>
+<a href="../laporan/harian.php"><i class="bi bi-calendar-day me-2"></i> Laporan Harian</a>
+<a href="../laporan/bulanan.php"><i class="bi bi-calendar-month me-2"></i> Laporan Bulanan</a>
+<a href="../laporan/tahunan.php"><i class="bi bi-calendar3 me-2"></i> Laporan Tahunan</a>
+<div class="menu-title">Sistem</div>
+<a href="../pengaturan/index.php"><i class="bi bi-gear me-2"></i> Pengaturan</a>
+</div><div class="main-content">
 
 
     <!-- NAVBAR -->
@@ -275,10 +199,6 @@ $query = mysqli_query($conn, "
                             Total
                         </th>
 
-                        <th>
-                            Keterangan
-                        </th>
-
                         <th class="text-center">
                             Aksi
                         </th>
@@ -289,188 +209,45 @@ $query = mysqli_query($conn, "
 
 
                 <tbody>
-
-
                 <?php
-
                 $no = 1;
 
-
                 if (mysqli_num_rows($query) > 0) {
-
-
                     while ($data = mysqli_fetch_assoc($query)) {
-
                 ?>
-
                     <tr>
-
-
-                        <td>
-
-                            <?= $no++; ?>
-
-                        </td>
-
-
-                        <td>
-
-                            <?= date(
-                                'd-m-Y',
-                                strtotime($data['tanggal'])
-                            ); ?>
-
-                        </td>
-
-
-                        <td>
-
-                            <strong>
-
-                                <?= htmlspecialchars(
-                                    $data['nama_transaksi']
-                                ); ?>
-
-                            </strong>
-
-                        </td>
-
-
+                        <td><?= $no++; ?></td>
+                        <td><?= date('d/m/Y', strtotime($data['tanggal'])); ?></td>
+                        <td><?= htmlspecialchars($data['nama_transaksi']); ?></td>
+                        <td class="text-center"><?= (int)$data['jumlah']; ?></td>
+                        <td class="text-end">Rp <?= number_format($data['harga'], 0, ',', '.'); ?></td>
+                        <td class="text-end fw-semibold">Rp <?= number_format($data['total'], 0, ',', '.'); ?></td>
                         <td class="text-center">
-
-                            <?= $data['jumlah']; ?>
-
-                        </td>
-
-
-                        <td class="text-end">
-
-                            Rp <?= number_format(
-                                $data['harga'],
-                                0,
-                                ',',
-                                '.'
-                            ); ?>
-
-                        </td>
-
-
-                        <td class="text-end">
-
-                            <strong class="text-success">
-
-                                Rp <?= number_format(
-                                    $data['total'],
-                                    0,
-                                    ',',
-                                    '.'
-                                ); ?>
-
-                            </strong>
-
-                        </td>
-
-
-                        <td>
-
-                            <?= htmlspecialchars(
-                                $data['keterangan'] ?? '-'
-                            ); ?>
-
-                        </td>
-
-
-                        <td class="text-center">
-
-
                             <div class="btn-group">
-
-
-                                <!-- EDIT -->
-
-                                <a
-                                    href="edit.php?id=<?= $data['id']; ?>"
-                                    class="btn btn-sm btn-warning"
-                                    title="Edit"
-                                >
-
+                                <a href="edit.php?id=<?= $data['id']; ?>" class="btn btn-sm btn-warning" title="Edit">
                                     <i class="bi bi-pencil"></i>
-
                                 </a>
-
-
-                                <!-- HAPUS -->
-
-                                <a
-                                    href="hapus.php?id=<?= $data['id']; ?>"
-                                    class="btn btn-sm btn-danger"
-                                    title="Hapus"
-                                    onclick="return confirm('Yakin ingin menghapus transaksi ini?')"
-                                >
-
+                                <a href="hapus.php?id=<?= $data['id']; ?>" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
                                     <i class="bi bi-trash"></i>
-
                                 </a>
-
-
                             </div>
-
-
                         </td>
-
-
                     </tr>
-
-
                 <?php
-
                     }
-
-
                 } else {
-
                 ?>
-
-
                     <tr>
-
-                        <td
-                            colspan="8"
-                            class="text-center py-5"
-                        >
-
-                            <i
-                                class="bi bi-inbox fs-1 text-muted"
-                            ></i>
-
-                            <p class="text-muted mt-2 mb-0">
-
-                                Belum ada data penghasilan.
-
-                            </p>
-
-                            <a
-                                href="tambah.php"
-                                class="btn btn-primary mt-3"
-                            >
-
+                        <td colspan="7" class="text-center py-5">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mt-2 mb-0">Belum ada data penghasilan.</p>
+                            <a href="tambah.php" class="btn btn-primary mt-3">
                                 <i class="bi bi-plus-circle"></i>
-
                                 Tambah Penghasilan
-
                             </a>
-
                         </td>
-
                     </tr>
-
-
-                <?php
-
-                }
-
-                ?>
-
+                <?php } ?>
 
                 </tbody>
 

@@ -1451,10 +1451,6 @@ $jumlah_transaksi = $data_total['jumlah_transaksi'];
                             Total
                         </th>
 
-                        <th>
-                            Keterangan
-                        </th>
-
                     </tr>
 
                 </thead>

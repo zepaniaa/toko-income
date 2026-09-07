@@ -128,6 +128,12 @@ $query_transaksi = mysqli_query($conn, "
 $data_transaksi = mysqli_fetch_assoc($query_transaksi);
 $jumlah_transaksi = $data_transaksi['jumlah'];
 
+// TOTAL PEMASUKAN & PENGELUARAN
+mysqli_query($conn, "CREATE TABLE IF NOT EXISTS pengeluaran (id INT AUTO_INCREMENT PRIMARY KEY, tanggal DATE NOT NULL, nama_pengeluaran VARCHAR(255) NOT NULL, jumlah DECIMAL(15,2) NOT NULL DEFAULT 0, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+$total_pemasukan = (float) mysqli_fetch_assoc(mysqli_query($conn, "SELECT COALESCE(SUM(total),0) total FROM penghasilan"))['total'];
+$total_pengeluaran = (float) mysqli_fetch_assoc(mysqli_query($conn, "SELECT COALESCE(SUM(jumlah),0) total FROM pengeluaran"))['total'];
+$saldo = $total_pemasukan - $total_pengeluaran;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -249,111 +255,22 @@ $query_terbaru = mysqli_query($conn, "
      SIDEBAR
 ===================================================== -->
 
-<aside class="sidebar">
+<div class="sidebar">
+<div class="brand"><i class="bi bi-shop"></i> TOKO INCOME</div>
+<div class="menu-title">Menu Utama</div>
+<a href="dashboard.php" class="active"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+<a href="penghasilan/index.php"><i class="bi bi-cash-stack me-2"></i> Penghasilan</a>
+<a href="pengeluaran/index.php"><i class="bi bi-wallet2 me-2"></i> Pengeluaran</a>
+<a href="barang/index.php"><i class="bi bi-box-seam me-2"></i> Barang</a>
+<a href="barang/stok.php"><i class="bi bi-clipboard-check me-2"></i> Pengecekan Stok</a>
 
-
-    <!-- BRAND -->
-
-    <div class="brand">
-
-        <div class="brand-icon">
-            <i class="bi bi-shop"></i>
-        </div>
-
-        <div>
-            <div class="brand-title">
-                <?= htmlspecialchars($nama_toko); ?>
-            </div>
-
-            <div class="brand-subtitle">
-                <?= htmlspecialchars($nama_aplikasi); ?>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- MENU UTAMA -->
-
-    <div class="menu-title">
-        MENU UTAMA
-    </div>
-
-
-    <a
-        href="dashboard.php"
-        class="active"
-    >
-
-        <i class="bi bi-grid-1x2-fill"></i>
-
-        <span>Dashboard</span>
-
-    </a>
-
-
-    <a href="penghasilan/index.php">
-
-        <i class="bi bi-wallet2"></i>
-
-        <span>Penghasilan</span>
-
-    </a>
-
-
-    <!-- LAPORAN -->
-
-    <div class="menu-title">
-        LAPORAN
-    </div>
-
-
-    <a href="laporan/harian.php">
-
-        <i class="bi bi-calendar-day"></i>
-
-        <span>Laporan Harian</span>
-
-    </a>
-
-
-    <a href="laporan/bulanan.php">
-
-        <i class="bi bi-calendar-month"></i>
-
-        <span>Laporan Bulanan</span>
-
-    </a>
-
-
-    <a href="laporan/tahunan.php">
-
-        <i class="bi bi-calendar3"></i>
-
-        <span>Laporan Tahunan</span>
-
-    </a>
-
-
-    <!-- SISTEM -->
-
-    <div class="menu-title">
-        SISTEM
-    </div>
-
-
-    <a href="pengaturan/index.php">
-
-        <i class="bi bi-gear"></i>
-
-        <span>Pengaturan</span>
-
-    </a>
-
-
-
-</aside>
+<div class="menu-title">Laporan</div>
+<a href="laporan/harian.php"><i class="bi bi-calendar-day me-2"></i> Laporan Harian</a>
+<a href="laporan/bulanan.php"><i class="bi bi-calendar-month me-2"></i> Laporan Bulanan</a>
+<a href="laporan/tahunan.php"><i class="bi bi-calendar3 me-2"></i> Laporan Tahunan</a>
+<div class="menu-title">Sistem</div>
+<a href="pengaturan/index.php"><i class="bi bi-gear me-2"></i> Pengaturan</a>
+</div>
 
 
 
@@ -481,211 +398,35 @@ $query_terbaru = mysqli_query($conn, "
     <div class="row g-4 mb-4">
 
 
-        <!-- HARI INI -->
+        <!-- TOTAL PEMASUKAN -->
+        <div class="col-xl-3 col-md-6"><div class="stat-card green"><div class="stat-content"><div><span class="stat-label">TOTAL PEMASUKAN</span><h3>Rp <?= number_format($total_pemasukan,0,',','.') ?></h3><span class="stat-info">Semua pemasukan</span></div></div><div class="stat-icon"><i class="bi bi-arrow-down-circle"></i></div></div></div>
 
-        <div class="col-xl-3 col-md-6">
+        <!-- TOTAL PENGELUARAN -->
+        <div class="col-xl-3 col-md-6"><div class="stat-card red"><div class="stat-content"><div><span class="stat-label">TOTAL PENGELUARAN</span><h3>Rp <?= number_format($total_pengeluaran,0,',','.') ?></h3><span class="stat-info">Semua pengeluaran</span></div></div><div class="stat-icon"><i class="bi bi-arrow-up-circle"></i></div></div></div>
 
-            <div class="stat-card blue">
-
-                <div class="stat-content">
-
-                    <div>
-
-                        <span class="stat-label">
-                            HARI INI
-                        </span>
-
-                        <h3>
-
-                            Rp <?= number_format(
-                                $total_hari,
-                                0,
-                                ',',
-                                '.'
-                            ); ?>
-
-                        </h3>
-
-                        <span class="stat-info">
-                            Penghasilan hari ini
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-icon">
-
-                    <i class="bi bi-calendar-check"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- BULAN INI -->
-
-        <div class="col-xl-3 col-md-6">
-
-            <div class="stat-card green">
-
-                <div class="stat-content">
-
-                    <div>
-
-                        <span class="stat-label">
-                            BULAN INI
-                        </span>
-
-                        <h3>
-
-                            Rp <?= number_format(
-                                $total_bulan,
-                                0,
-                                ',',
-                                '.'
-                            ); ?>
-
-                        </h3>
-
-                        <span class="stat-info">
-                            Penghasilan bulan ini
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-icon">
-
-                    <i class="bi bi-calendar-month"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- TAHUN INI -->
-
-        <div class="col-xl-3 col-md-6">
-
-            <div class="stat-card orange">
-
-                <div class="stat-content">
-
-                    <div>
-
-                        <span class="stat-label">
-                            TAHUN INI
-                        </span>
-
-                        <h3>
-
-                            Rp <?= number_format(
-                                $total_tahun,
-                                0,
-                                ',',
-                                '.'
-                            ); ?>
-
-                        </h3>
-
-                        <span class="stat-info">
-                            Penghasilan tahun ini
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-icon">
-
-                    <i class="bi bi-graph-up-arrow"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
+        <!-- SALDO -->
+        <div class="col-xl-3 col-md-6"><div class="stat-card blue"><div class="stat-content"><div><span class="stat-label">SALDO</span><h3>Rp <?= number_format($saldo,0,',','.') ?></h3><span class="stat-info">Pemasukan - pengeluaran</span></div></div><div class="stat-icon"><i class="bi bi-wallet2"></i></div></div></div>
 
         <!-- TRANSAKSI -->
-
-        <div class="col-xl-3 col-md-6">
-
-            <div class="stat-card red">
-
-                <div class="stat-content">
-
-                    <div>
-
-                        <span class="stat-label">
-                            TRANSAKSI
-                        </span>
-
-                        <h3>
-
-                            <?= number_format(
-                                $jumlah_transaksi,
-                                0,
-                                ',',
-                                '.'
-                            ); ?>
-
-                        </h3>
-
-                        <span class="stat-info">
-                            Total seluruh transaksi
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-icon">
-
-                    <i class="bi bi-receipt"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
+        <div class="col-xl-3 col-md-6"><div class="stat-card orange"><div class="stat-content"><div><span class="stat-label">TRANSAKSI PEMASUKAN</span><h3><?= number_format($jumlah_transaksi,0,',','.') ?></h3><span class="stat-info">Total transaksi pemasukan</span></div></div><div class="stat-icon"><i class="bi bi-receipt"></i></div></div></div>
 
     </div>
 
 
 
     <!-- =================================================
-         GRAPH + QUICK ACTION
+         GRAPH
     ================================================== -->
 
     <div class="row g-4 mb-4">
 
-
-        <!-- GRAPH -->
-
-        <div class="col-xl-8">
+        <div class="col-xl-12">
 
             <div class="dashboard-card chart-card">
-
 
                 <div class="card-header-custom">
 
                     <div>
-
                         <h4>
                             Penghasilan 7 Hari Terakhir
                         </h4>
@@ -693,157 +434,23 @@ $query_terbaru = mysqli_query($conn, "
                         <p>
                             Performa penghasilan berdasarkan tanggal
                         </p>
-
                     </div>
-
 
                     <div class="chart-icon">
-
                         <i class="bi bi-bar-chart-line"></i>
-
                     </div>
 
                 </div>
-
 
                 <div class="chart-container">
-
-                    <canvas
-                        id="grafikPenghasilan"
-                    ></canvas>
-
+                    <canvas id="grafikPenghasilan"></canvas>
                 </div>
-
 
             </div>
 
         </div>
-
-
-
-        <!-- QUICK ACTION -->
-
-        <div class="col-xl-4">
-
-            <div class="dashboard-card quick-card">
-
-
-                <div class="card-header-custom">
-
-                    <div>
-
-                        <h4>
-                            Aksi Cepat
-                        </h4>
-
-                        <p>
-                            Akses menu yang sering digunakan
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="quick-actions">
-
-
-                    <a
-                        href="penghasilan/tambah.php"
-                        class="quick-button primary"
-                    >
-
-                        <span class="quick-button-icon">
-
-                            <i class="bi bi-plus-lg"></i>
-
-                        </span>
-
-                        <span>
-
-                            <strong>
-                                Tambah Penghasilan
-                            </strong>
-
-                            <small>
-                                Input transaksi baru
-                            </small>
-
-                        </span>
-
-                        <i class="bi bi-chevron-right arrow"></i>
-
-                    </a>
-
-
-
-                    <a
-                        href="penghasilan/index.php"
-                        class="quick-button blue"
-                    >
-
-                        <span class="quick-button-icon">
-
-                            <i class="bi bi-wallet2"></i>
-
-                        </span>
-
-                        <span>
-
-                            <strong>
-                                Data Penghasilan
-                            </strong>
-
-                            <small>
-                                Lihat semua transaksi
-                            </small>
-
-                        </span>
-
-                        <i class="bi bi-chevron-right arrow"></i>
-
-                    </a>
-
-
-
-                    <a
-                        href="laporan/harian.php"
-                        class="quick-button green"
-                    >
-
-                        <span class="quick-button-icon">
-
-                            <i class="bi bi-file-earmark-bar-graph"></i>
-
-                        </span>
-
-                        <span>
-
-                            <strong>
-                                Lihat Laporan
-                            </strong>
-
-                            <small>
-                                Lihat laporan toko
-                            </small>
-
-                        </span>
-
-                        <i class="bi bi-chevron-right arrow"></i>
-
-                    </a>
-
-
-                </div>
-
-
-            </div>
-
-        </div>
-
 
     </div>
-
 
 
     <!-- =================================================

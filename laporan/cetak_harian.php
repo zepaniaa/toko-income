@@ -230,10 +230,6 @@ $total_penghasilan = $data_total['total'];
                 Total
             </th>
 
-            <th>
-                Keterangan
-            </th>
-
         </tr>
 
     </thead>
