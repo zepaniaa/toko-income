@@ -6,4 +6,5 @@ WORKDIR /app
 
 ENV SERVER_NAME=:8080
 
+COPY Caddyfile /etc/frankenphp/Caddyfile
 COPY . /app
