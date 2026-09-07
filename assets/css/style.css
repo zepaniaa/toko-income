@@ -2191,3 +2191,175 @@ button.btn-primary:hover {
         padding: 16px !important;
     }
 }
+
+
+/* =========================================================
+   MOBILE SIDEBAR - MENU TETAP DI SAMPING
+========================================================= */
+@media (max-width: 768px) {
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        width: 72px;
+        padding: 14px 8px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .sidebar .brand,
+    .sidebar .logo {
+        justify-content: center;
+        padding: 4px 0 18px;
+        font-size: 0;
+        gap: 0;
+        white-space: nowrap;
+    }
+
+    .sidebar .brand i,
+    .sidebar .logo i {
+        font-size: 24px;
+        margin: 0 !important;
+    }
+
+    .sidebar .brand h1,
+    .sidebar .logo h1 {
+        display: none;
+    }
+
+    .sidebar .menu-title {
+        display: none;
+    }
+
+    .sidebar ul {
+        margin: 0;
+    }
+
+    .sidebar li {
+        margin-bottom: 6px;
+    }
+
+    .sidebar a {
+        min-height: 48px;
+        width: 56px;
+        padding: 10px 0;
+        margin: 0 auto;
+        justify-content: center;
+        gap: 0;
+        border-radius: 12px;
+        font-size: 0;
+    }
+
+    .sidebar a i,
+    .sidebar a .bi {
+        font-size: 20px;
+        margin: 0 !important;
+        line-height: 1;
+    }
+
+    .sidebar a:hover {
+        transform: none;
+    }
+
+    .main-content {
+        margin-left: 72px;
+        width: calc(100% - 72px);
+        min-width: 0;
+        padding: 12px 10px 25px;
+    }
+
+    .top-navbar {
+        min-height: 60px;
+        padding: 12px 14px;
+        margin-bottom: 14px;
+        border-radius: 14px;
+    }
+
+    .top-navbar h1,
+    .top-navbar h2,
+    .top-navbar h3,
+    .top-navbar h4,
+    .top-navbar h5 {
+        font-size: 17px !important;
+    }
+
+    .top-navbar p {
+        font-size: 10px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .welcome-card {
+        min-height: auto;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 16px;
+    }
+
+    .welcome-card h2 {
+        font-size: 21px;
+    }
+
+    .welcome-card p {
+        font-size: 11px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .stat-card {
+        min-height: 120px;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .table-responsive {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive table {
+        min-width: 620px;
+    }
+
+    .report-table,
+    .detail-transaksi table,
+    .transaction-detail table,
+    .report-detail table {
+        min-width: 620px;
+    }
+
+    .card,
+    .dashboard-card,
+    .table-card,
+    .chart-card,
+    .filter-card,
+    .report-card,
+    .report-detail {
+        max-width: 100%;
+    }
+
+    .row {
+        --bs-gutter-x: 0.75rem;
+    }
+
+    .btn {
+        white-space: nowrap;
+    }
+
+    /* Header halaman tidak turun terlalu panjang */
+    .d-flex.justify-content-between.align-items-center {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}
