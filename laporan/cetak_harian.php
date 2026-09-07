@@ -295,15 +295,6 @@ $total_penghasilan = $data_total['total'];
 
             </td>
 
-
-            <td>
-
-                <?= htmlspecialchars(
-                    $data['keterangan'] ?? '-'
-                ); ?>
-
-            </td>
-
         </tr>
 
     <?php
@@ -317,7 +308,7 @@ $total_penghasilan = $data_total['total'];
         <tr>
 
             <td
-                colspan="6"
+                colspan="5"
                 class="text-center"
             >
 
