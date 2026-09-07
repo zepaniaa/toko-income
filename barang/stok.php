@@ -178,4 +178,5 @@ document.querySelectorAll('tr').forEach(function(row){
  }
 });
 </script>
+<script src="../assets/js/mobile-menu.js"></script>
 </body></html>

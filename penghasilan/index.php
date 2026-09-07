@@ -264,6 +264,7 @@ $query = mysqli_query($conn, "
 </div>
 
 
+<script src="../assets/js/mobile-menu.js"></script>
 </body>
 
 </html>

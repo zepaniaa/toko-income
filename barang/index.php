@@ -53,4 +53,5 @@ function rupiah($angka) { return 'Rp' . number_format((float)$angka, 0, ',', '.'
 <?php endwhile; if(mysqli_num_rows($query)===0): ?><tr><td colspan="8" class="text-center py-5"><i class="bi bi-box-seam fs-1 text-muted"></i><p class="text-muted mt-2">Belum ada barang.</p><a href="tambah.php" class="btn btn-primary">Tambah Barang</a></td></tr><?php endif; ?>
 </tbody></table></div></div></div>
 </div>
+<script src="../assets/js/mobile-menu.js"></script>
 </body></html>
