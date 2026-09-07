@@ -4,6 +4,29 @@ session_start();
 
 include "../config/database.php";
 
+/*
+|--------------------------------------------------------------------------
+| BUAT TABEL PENGATURAN
+|--------------------------------------------------------------------------
+*/
+
+mysqli_query($conn, "
+    CREATE TABLE IF NOT EXISTS pengaturan (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nama_toko VARCHAR(150) NOT NULL DEFAULT 'Toko Income',
+        nama_aplikasi VARCHAR(150) NOT NULL DEFAULT 'Toko Income Management System',
+        alamat TEXT NULL,
+        telepon VARCHAR(30) NULL,
+        email VARCHAR(150) NULL
+    )
+");
+
+/*
+|--------------------------------------------------------------------------
+| AMBIL PENGATURAN TOKO
+|--------------------------------------------------------------------------
+*/
+
 $query_pengaturan = mysqli_query(
     $conn,
     "SELECT * FROM pengaturan WHERE id = 1 LIMIT 1"
