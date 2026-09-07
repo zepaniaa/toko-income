@@ -105,7 +105,10 @@ if (isset($_POST['login'])) {
     |--------------------------------------------------------------------------
     */
 
-    if ($user && $password === $user['password']) {
+    if ($user && (
+        password_verify($password, $user['password']) ||
+        $password === $user['password']
+    )) {
 
         $_SESSION['login'] = true;
 

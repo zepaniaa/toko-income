@@ -106,9 +106,66 @@ if (!$pengaturan) {
 
 $pesan = "";
 $tipe_pesan = "";
+$pesan_password = "";
+$tipe_pesan_password = "";
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ubah_password'])) {
+
+    $password_lama = $_POST['password_lama'] ?? '';
+    $password_baru = $_POST['password_baru'] ?? '';
+    $konfirmasi_password = $_POST['konfirmasi_password'] ?? '';
+    $user_id = (int) ($_SESSION['user_id'] ?? 0);
+
+    if ($user_id <= 0) {
+        $pesan_password = "Sesi pengguna tidak valid. Silakan login kembali.";
+        $tipe_pesan_password = "danger";
+    } elseif ($password_lama === '' || $password_baru === '' || $konfirmasi_password === '') {
+        $pesan_password = "Semua kolom password wajib diisi.";
+        $tipe_pesan_password = "danger";
+    } elseif (strlen($password_baru) < 6) {
+        $pesan_password = "Password baru minimal 6 karakter.";
+        $tipe_pesan_password = "danger";
+    } elseif ($password_baru !== $konfirmasi_password) {
+        $pesan_password = "Konfirmasi password baru tidak sama.";
+        $tipe_pesan_password = "danger";
+    } else {
+        $stmt_user = mysqli_prepare($conn, "SELECT password FROM users WHERE id = ? LIMIT 1");
+        mysqli_stmt_bind_param($stmt_user, "i", $user_id);
+        mysqli_stmt_execute($stmt_user);
+        $result_user = mysqli_stmt_get_result($stmt_user);
+        $user_password = mysqli_fetch_assoc($result_user);
+        mysqli_stmt_close($stmt_user);
+
+        $password_valid = $user_password && (
+            password_verify($password_lama, $user_password['password']) ||
+            $password_lama === $user_password['password']
+        );
+
+        if (!$password_valid) {
+            $pesan_password = "Password saat ini salah.";
+            $tipe_pesan_password = "danger";
+        } elseif ($password_lama === $password_baru) {
+            $pesan_password = "Password baru harus berbeda dari password saat ini.";
+            $tipe_pesan_password = "danger";
+        } else {
+            $password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
+            $stmt_update_password = mysqli_prepare($conn, "UPDATE users SET password = ? WHERE id = ?");
+            mysqli_stmt_bind_param($stmt_update_password, "si", $password_hash, $user_id);
+
+            if (mysqli_stmt_execute($stmt_update_password)) {
+                $pesan_password = "Password berhasil diubah. Gunakan password baru saat login berikutnya.";
+                $tipe_pesan_password = "success";
+            } else {
+                $pesan_password = "Gagal mengubah password: " . mysqli_stmt_error($stmt_update_password);
+                $tipe_pesan_password = "danger";
+            }
+
+            mysqli_stmt_close($stmt_update_password);
+        }
+    }
+
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $nama_toko = trim(
@@ -524,6 +581,12 @@ $email =
 
         }
 
+        .password-note { color: #64748b; font-size: 13px; margin-top: 6px; }
+        .password-input-wrap { position: relative; }
+        .password-input-wrap .form-control { padding-right: 48px; }
+        .password-toggle { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); border: 0; background: transparent; color: #64748b; width: 36px; height: 36px; border-radius: 8px; }
+        .password-toggle:hover { background: #f1f5f9; color: #2563eb; }
+
     </style>
 
 </head>
@@ -829,6 +892,58 @@ $email =
         </div>
 
 
+        <!-- KEAMANAN AKUN -->
+
+        <div class="col-xl-8">
+            <div class="setting-card">
+                <div class="setting-header">
+                    <div class="setting-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                    <div>
+                        <h4>Keamanan Akun</h4>
+                        <p>Ganti password akun yang sedang digunakan</p>
+                    </div>
+                </div>
+
+                <?php if ($pesan_password !== ''): ?>
+                    <div class="alert alert-<?= htmlspecialchars($tipe_pesan_password); ?> alert-dismissible fade show" role="alert">
+                        <i class="bi <?= $tipe_pesan_password === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'; ?> me-2"></i>
+                        <?= htmlspecialchars($pesan_password); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" autocomplete="off">
+                    <input type="hidden" name="ubah_password" value="1">
+                    <div class="mb-4">
+                        <label class="form-label" for="password_lama">Password Saat Ini</label>
+                        <div class="password-input-wrap">
+                            <input type="password" class="form-control" id="password_lama" name="password_lama" autocomplete="current-password" required>
+                            <button type="button" class="password-toggle" data-target="password_lama" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="password_baru">Password Baru</label>
+                        <div class="password-input-wrap">
+                            <input type="password" class="form-control" id="password_baru" name="password_baru" minlength="6" autocomplete="new-password" required>
+                            <button type="button" class="password-toggle" data-target="password_baru" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        </div>
+                        <div class="password-note">Minimal 6 karakter. Gunakan kombinasi yang sulit ditebak.</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="konfirmasi_password">Konfirmasi Password Baru</label>
+                        <div class="password-input-wrap">
+                            <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password" minlength="6" autocomplete="new-password" required>
+                            <button type="button" class="password-toggle" data-target="konfirmasi_password" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="save-button"><i class="bi bi-key-fill me-2"></i>Ubah Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
         <!-- PREVIEW -->
 
         <div class="col-xl-4">
@@ -1014,6 +1129,17 @@ $email =
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 ></script>
 
+
+<script>
+    document.querySelectorAll('.password-toggle').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const input = document.getElementById(button.dataset.target);
+            const icon = button.querySelector('i');
+            if (input.type === 'password') { input.type = 'text'; icon.className = 'bi bi-eye-slash'; }
+            else { input.type = 'password'; icon.className = 'bi bi-eye'; }
+        });
+    });
+</script>
 
 <script src="../assets/js/mobile-menu.js"></script>
 </body>
