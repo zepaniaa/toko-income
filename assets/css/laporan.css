@@ -1,0 +1,977 @@
+/* ============================================================
+   TOKO INCOME
+   THEME LAPORAN
+   ABU-ABU / HITAM / PUTIH / HIJAU
+   Untuk:
+   - Laporan Harian
+   - Laporan Bulanan
+   - Laporan Tahunan
+============================================================ */
+
+
+/* ============================================================
+   WARNA UTAMA
+============================================================ */
+
+:root {
+    --dark: #202124;
+    --dark-2: #292b2f;
+    --dark-3: #34373c;
+
+    --gray-bg: #f1f2f4;
+    --gray-soft: #f7f7f8;
+    --gray-border: #dedfe2;
+    --gray-text: #6b7078;
+
+    --white: #ffffff;
+
+    --green: #15966a;
+    --green-dark: #0e7854;
+    --green-soft: #e7f6ef;
+
+    --red: #c0392b;
+
+    --shadow:
+        0 5px 20px rgba(25, 28, 35, .07);
+}
+
+
+/* ============================================================
+   GLOBAL
+============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f6f7 0%,
+            #eceef1 100%
+        ) !important;
+
+    color: var(--dark) !important;
+
+    min-height: 100vh;
+}
+
+
+/* ============================================================
+   HILANGKAN WARNA BIRU BOOTSTRAP
+============================================================ */
+
+/* text-primary */
+
+.text-primary {
+    color: var(--dark) !important;
+}
+
+
+/* btn-primary */
+
+.btn-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #303238,
+            #1d1f22
+        ) !important;
+
+    border-color: #303238 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, .12) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background:
+        linear-gradient(
+            135deg,
+            #1d1f22,
+            #101114
+        ) !important;
+
+    border-color: #1d1f22 !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, .16) !important;
+}
+
+
+/* table-primary */
+
+.table-primary {
+    --bs-table-bg: #292b2f !important;
+    --bs-table-color: #ffffff !important;
+    --bs-table-border-color: #292b2f !important;
+
+    background: #292b2f !important;
+
+    color: #ffffff !important;
+}
+
+.table-primary th,
+.table-primary td {
+    background: #292b2f !important;
+
+    color: #ffffff !important;
+
+    border-color: #292b2f !important;
+}
+
+
+/* bg-light */
+
+.bg-light {
+    background:
+        linear-gradient(
+            135deg,
+            #f5f6f7,
+            #eceef1
+        ) !important;
+}
+
+
+/* ============================================================
+   CONTAINER
+============================================================ */
+
+.container,
+.container-fluid {
+    position: relative;
+}
+
+
+/* ============================================================
+   NAVBAR LAPORAN HARIAN
+============================================================ */
+
+.navbar-custom {
+    background: rgba(255,255,255,.95) !important;
+
+    border-bottom: 1px solid #e4e5e7;
+
+    box-shadow:
+        0 4px 18px rgba(25,28,35,.06) !important;
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* Logo */
+
+.navbar-custom .navbar-brand,
+.navbar-custom .text-primary {
+    color: var(--dark) !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -.3px;
+}
+
+.navbar-custom .navbar-brand i {
+    color: var(--dark) !important;
+}
+
+
+/* Administrator */
+
+.navbar-custom .btn-light {
+    background: #f7f7f8 !important;
+
+    border: 1px solid #e1e2e5 !important;
+
+    color: #303238 !important;
+
+    border-radius: 10px !important;
+}
+
+.navbar-custom .btn-light:hover {
+    background: #eeeeef !important;
+
+    border-color: #cfd1d5 !important;
+}
+
+
+/* ============================================================
+   JUDUL HALAMAN
+============================================================ */
+
+.container h2,
+.container h3,
+.container h4,
+.container h5 {
+    color: #191a1e;
+}
+
+.container > .d-flex h2,
+.container > .d-flex h3 {
+    font-size: 30px;
+
+    letter-spacing: -.7px;
+}
+
+.container-fluid h3 {
+    font-size: 30px;
+
+    letter-spacing: -.7px;
+}
+
+.container p.text-muted,
+.container-fluid p.text-muted {
+    color: #70747c !important;
+}
+
+
+/* Icon judul */
+
+.container-fluid h3 .bi,
+.container h2 .bi,
+.container h3 .bi {
+    color: #292b2f !important;
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.card {
+    background: #ffffff !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    border-radius: 17px !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+
+    overflow: hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.card:hover {
+    border-color: #d2d4d7 !important;
+
+    box-shadow:
+        0 9px 28px rgba(25,28,35,.09) !important;
+}
+
+
+/* ============================================================
+   CARD BODY
+============================================================ */
+
+.card-body {
+    padding: 22px !important;
+}
+
+
+/* ============================================================
+   FILTER
+============================================================ */
+
+.card form {
+    margin: 0;
+}
+
+.form-label {
+    color: #34373c !important;
+
+    font-size: 13px;
+
+    font-weight: 700 !important;
+
+    margin-bottom: 7px;
+}
+
+
+/* Input */
+
+.form-control,
+.form-select {
+    background: #fafafa !important;
+
+    color: #292b2f !important;
+
+    border: 1px solid #d8dade !important;
+
+    border-radius: 10px !important;
+
+    min-height: 44px;
+
+    box-shadow: none !important;
+
+    transition: all .2s ease;
+}
+
+
+/* Focus */
+
+.form-control:focus,
+.form-select:focus {
+    background: #ffffff !important;
+
+    color: #202124 !important;
+
+    border-color: #555960 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(41,43,47,.08) !important;
+}
+
+
+/* ============================================================
+   TOMBOL SECONDARY
+============================================================ */
+
+.btn-secondary {
+    background: #303238 !important;
+
+    border-color: #303238 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 9px !important;
+}
+
+.btn-secondary:hover {
+    background: #1d1f22 !important;
+
+    border-color: #1d1f22 !important;
+
+    color: #ffffff !important;
+}
+
+
+/* Outline secondary */
+
+.btn-outline-secondary {
+    background: #ffffff !important;
+
+    color: #45484e !important;
+
+    border-color: #bfc2c7 !important;
+
+    border-radius: 9px !important;
+}
+
+.btn-outline-secondary:hover {
+    background: #f0f1f2 !important;
+
+    color: #202124 !important;
+
+    border-color: #92969d !important;
+}
+
+
+/* ============================================================
+   LAPORAN HARIAN
+   KARTU TOTAL PENGHASILAN
+============================================================ */
+
+/*
+   Ini yang sebelumnya BIRU:
+   .total-card {
+       background: linear-gradient(
+           135deg,
+           #0d6efd,
+           #0b5ed7
+       );
+   }
+
+   Sekarang diganti menjadi charcoal.
+*/
+
+.total-card {
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(21,150,106,.20),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #303238,
+            #191a1e
+        ) !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    box-shadow:
+        0 10px 28px rgba(20,22,25,.16) !important;
+}
+
+.total-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 32px rgba(20,22,25,.20) !important;
+}
+
+
+/* Semua tulisan dalam total card */
+
+.total-card p,
+.total-card h3 {
+    color: #ffffff !important;
+}
+
+
+/* Icon uang */
+
+.total-card .bi {
+    color: #ffffff !important;
+
+    opacity: .95;
+}
+
+
+/* ============================================================
+   KARTU JUMLAH TRANSAKSI
+============================================================ */
+
+.row.g-4 .card:not(.total-card) {
+    background: #ffffff !important;
+}
+
+
+/* Icon transaksi yang sebelumnya biru */
+
+.text-primary .bi,
+div.text-primary .bi {
+    color: #292b2f !important;
+}
+
+
+/* ============================================================
+   NILAI PENGHASILAN
+============================================================ */
+
+.text-success {
+    color: var(--green) !important;
+}
+
+strong.text-success {
+    color: var(--green) !important;
+}
+
+
+/* Pada total card tetap putih */
+
+.total-card .text-success {
+    color: #ffffff !important;
+}
+
+
+/* ============================================================
+   DETAIL TRANSAKSI
+============================================================ */
+
+.table-responsive {
+    border-radius: 12px;
+
+    overflow-x: auto;
+}
+
+
+/* ============================================================
+   TABLE UMUM
+============================================================ */
+
+.table {
+    margin-bottom: 0;
+
+    color: #3f4349;
+
+    border-color: #e1e3e6;
+}
+
+
+/* Header table-light */
+
+.table-light {
+    --bs-table-bg: #f0f1f3 !important;
+    --bs-table-color: #292b2f !important;
+
+    background: #f0f1f3 !important;
+
+    color: #292b2f !important;
+}
+
+.table-light th {
+    background: #f0f1f3 !important;
+
+    color: #292b2f !important;
+
+    font-weight: 800;
+
+    border-color: #dfe1e4 !important;
+}
+
+
+/* Header table primary */
+
+.table-primary th {
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    font-size: 12px;
+
+    letter-spacing: .4px;
+
+    padding: 14px 15px;
+}
+
+
+/* Isi */
+
+.table tbody td {
+    background: #ffffff !important;
+
+    color: #454950 !important;
+
+    padding: 14px 15px;
+
+    border-color: #eef0f2 !important;
+
+    vertical-align: middle;
+}
+
+
+/* Hover */
+
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: #f4f8f6 !important;
+
+    background-color: #f4f8f6 !important;
+
+    color: #292b2f !important;
+}
+
+
+/* Strong */
+
+.table strong {
+    color: #292b2f;
+}
+
+
+/* ============================================================
+   FOOTER / TOTAL TABLE
+============================================================ */
+
+.table tfoot tr {
+    background: #f1f2f3 !important;
+}
+
+.table tfoot th {
+    background: #f1f2f3 !important;
+
+    color: #292b2f !important;
+
+    border-color: #dfe1e4 !important;
+
+    font-weight: 800;
+}
+
+
+/* Total rupiah */
+
+.table tfoot .text-success {
+    color: var(--green) !important;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.bi-inbox {
+    color: #888c93 !important;
+}
+
+.text-muted {
+    color: #74787f !important;
+}
+
+
+/* ============================================================
+   LINK
+============================================================ */
+
+a {
+    transition: .2s ease;
+}
+
+a:hover {
+    color: var(--green);
+}
+
+
+/* ============================================================
+   TOMBOL UMUM
+============================================================ */
+
+.btn {
+    font-weight: 600;
+
+    transition:
+        all .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   REPORT HEADER
+============================================================ */
+
+.container > .d-flex {
+    position: relative;
+}
+
+.container > .d-flex::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -12px;
+
+    width: 55px;
+    height: 4px;
+
+    border-radius: 10px;
+
+    background: var(--green);
+}
+
+
+/* ============================================================
+   CARD FILTER - EFEK MODERN
+============================================================ */
+
+.container > .card:first-of-type,
+.container-fluid > .card:first-of-type {
+    position: relative;
+}
+
+.container > .card:first-of-type::before,
+.container-fluid > .card:first-of-type::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background: #292b2f;
+}
+
+
+/* ============================================================
+   RINGKASAN CARD
+============================================================ */
+
+.row.mb-4 .card {
+    min-height: 110px;
+}
+
+.row.mb-4 .card .card-body {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+/* ============================================================
+   BULANAN & TAHUNAN
+============================================================ */
+
+/* Judul total */
+
+.container .row.mb-4 h3 {
+    color: var(--green) !important;
+}
+
+
+/* Jumlah transaksi */
+
+.container .row.mb-4 .text-primary {
+    color: #292b2f !important;
+}
+
+
+/* ============================================================
+   TABEL BULANAN & TAHUNAN
+============================================================ */
+
+.container .table-bordered {
+    border-color: #dedfe2 !important;
+}
+
+.container .table-bordered th,
+.container .table-bordered td {
+    border-color: #e0e2e5 !important;
+}
+
+
+/* Header tetap charcoal */
+
+.container .table-bordered thead.table-primary th {
+    background:
+        linear-gradient(
+            135deg,
+            #303238,
+            #202124
+        ) !important;
+
+    color: #ffffff !important;
+}
+
+
+/* ============================================================
+   ROW TABEL
+============================================================ */
+
+.table tbody tr {
+    transition: background .15s ease;
+}
+
+.table tbody tr:hover {
+    background: #f5faf7;
+}
+
+
+/* ============================================================
+   BADGE / STATUS JIKA ADA
+============================================================ */
+
+.badge-success {
+    background: var(--green-soft) !important;
+
+    color: var(--green-dark) !important;
+}
+
+.badge-primary {
+    background: #eeeeef !important;
+
+    color: #35383d !important;
+}
+
+
+/* ============================================================
+   DROPDOWN
+============================================================ */
+
+.dropdown-menu {
+    border: 1px solid #e1e2e5 !important;
+
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 10px 25px rgba(20,22,25,.10) !important;
+
+    padding: 7px !important;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+
+    color: #41444a;
+}
+
+.dropdown-item:hover {
+    background: #f0f1f2;
+
+    color: #202124;
+}
+
+
+/* Logout tetap merah */
+
+.dropdown-item.text-danger {
+    color: #b52e25 !important;
+}
+
+.dropdown-item.text-danger:hover {
+    background: #fff1f0 !important;
+}
+
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e7e8ea;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b7bac0;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8d9198;
+}
+
+
+/* ============================================================
+   PRINT
+============================================================ */
+
+@media print {
+
+    body {
+        background: #ffffff !important;
+    }
+
+    .navbar-custom {
+        box-shadow: none !important;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .btn,
+    button,
+    .dropdown,
+    form {
+        display: none !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+
+        border: 1px solid #ddd !important;
+    }
+
+    .total-card {
+        background: #292b2f !important;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .table-primary th {
+        background: #292b2f !important;
+
+        color: #ffffff !important;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 768px) {
+
+    .container,
+    .container-fluid {
+        padding-left: 16px !important;
+
+        padding-right: 16px !important;
+    }
+
+    .container > .d-flex {
+        flex-direction: column;
+
+        align-items: flex-start !important;
+
+        gap: 15px;
+    }
+
+    .container > .d-flex::after {
+        bottom: -8px;
+    }
+
+    .container > .d-flex .btn {
+        width: 100%;
+    }
+
+    .container-fluid h3,
+    .container > .d-flex h2 {
+        font-size: 25px;
+    }
+
+    .card-body {
+        padding: 18px !important;
+    }
+
+    .total-card h3 {
+        font-size: 26px;
+    }
+
+    .table {
+        min-width: 600px;
+    }
+}
+
+
+/* ============================================================
+   ANIMASI MASUK
+============================================================ */
+
+.card {
+    animation: reportCardIn .35s ease both;
+}
+
+@keyframes reportCardIn {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}

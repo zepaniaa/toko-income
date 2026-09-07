@@ -1,0 +1,2193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #f1f3f5;
+    --card: #ffffff;
+    --dark: #17181c;
+    --dark-2: #22242a;
+    --dark-3: #303239;
+
+    --text: #18191d;
+    --text-soft: #62666f;
+    --text-light: #9297a1;
+
+    --border: #e3e5e8;
+
+    --green: #18b67a;
+    --green-dark: #0f9965;
+    --green-soft: #e8f8f1;
+
+    --blue: #4776e6;
+    --blue-soft: #edf2ff;
+
+    --orange: #f59e0b;
+    --orange-soft: #fff7e6;
+
+    --red: #ef5350;
+    --red-soft: #fff0f0;
+
+    --shadow: 0 5px 20px rgba(25, 28, 35, 0.06);
+    --shadow-hover: 0 12px 30px rgba(25, 28, 35, 0.10);
+}
+
+/* ==============================
+   RESET
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background:
+        linear-gradient(135deg, #f5f6f7 0%, #eceef1 100%);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* ==============================
+   SIDEBAR
+============================== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 255px;
+    height: 100vh;
+
+    padding: 25px 15px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #17181c 0%,
+            #202126 50%,
+            #15161a 100%
+        );
+
+    color: #fff;
+
+    z-index: 1000;
+
+    overflow-y: auto;
+
+    box-shadow: 5px 0 25px rgba(0,0,0,.12);
+}
+
+/* ==============================
+   LOGO
+============================== */
+
+.sidebar .brand,
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 5px 10px 30px;
+
+    color: white;
+}
+
+.sidebar .brand h1,
+.sidebar .logo h1 {
+    font-size: 18px;
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    letter-spacing: -.4px;
+}
+
+/* Logo icon */
+
+.sidebar .brand .icon,
+.sidebar .logo .icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #d8dadd
+        );
+
+    color: #18191d;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.25);
+}
+
+/* ==============================
+   MENU TITLE
+============================== */
+
+.sidebar .menu-title {
+    margin: 18px 10px 8px;
+
+    color: #777b84;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+/* ==============================
+   SIDEBAR MENU
+============================== */
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 5px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    min-height: 47px;
+
+    padding: 11px 14px;
+
+    border-radius: 12px;
+
+    color: #9ea2aa;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: all .2s ease;
+}
+
+.sidebar a:hover {
+    color: white;
+
+    background: rgba(255,255,255,.07);
+
+    transform: translateX(3px);
+}
+
+.sidebar a.active {
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.14),
+            rgba(255,255,255,.06)
+        );
+
+    box-shadow:
+        inset 3px 0 0 var(--green),
+        0 5px 15px rgba(0,0,0,.10);
+}
+
+.sidebar a.active .icon {
+    color: var(--green);
+}
+
+/* ==============================
+   MAIN
+============================== */
+
+.main-content {
+    margin-left: 255px;
+
+    min-height: 100vh;
+
+    padding: 24px 32px 40px;
+}
+
+/* ==============================
+   TOP NAVBAR
+============================== */
+
+.top-navbar {
+    min-height: 78px;
+
+    padding: 17px 24px;
+
+    margin-bottom: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255,255,255,.88);
+
+    border: 1px solid rgba(220,222,226,.9);
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(10px);
+}
+
+.top-navbar h2 {
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    letter-spacing: -.7px;
+}
+
+.top-navbar p {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: var(--text-soft);
+}
+
+/* ==============================
+   WELCOME
+============================== */
+
+.welcome-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 185px;
+
+    padding: 30px 32px;
+
+    margin-bottom: 22px;
+
+    border-radius: 21px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(24,182,122,.35),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            rgba(71,118,230,.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #24262c 0%,
+            #15161a 100%
+        );
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,.13);
+}
+
+/* decorative circles */
+
+.welcome-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    right: -75px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    border: 45px solid rgba(255,255,255,.035);
+}
+
+.welcome-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: 150px;
+    bottom: -65px;
+
+    border-radius: 50%;
+
+    background: rgba(24,182,122,.07);
+}
+
+.welcome-card h2 {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    margin-bottom: 9px;
+
+    letter-spacing: -.9px;
+}
+
+.welcome-card p {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+
+    color: #c5c8ce;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+/* ==============================
+   STATISTICS
+============================== */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 23px;
+}
+
+/* ==============================
+   STAT CARD
+============================== */
+
+.stat-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 160px;
+
+    padding: 20px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    box-shadow: var(--shadow);
+
+    transition: all .25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #d3d6da;
+
+    box-shadow: var(--shadow-hover);
+}
+
+/* colored top line */
+
+.stat-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: var(--dark);
+}
+
+.stat-card:nth-child(1)::before {
+    background: var(--green);
+}
+
+.stat-card:nth-child(2)::before {
+    background: var(--blue);
+}
+
+.stat-card:nth-child(3)::before {
+    background: var(--orange);
+}
+
+.stat-card:nth-child(4)::before {
+    background: #8b5cf6;
+}
+
+/* ==============================
+   STAT ICON
+============================== */
+
+.stat-card .icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    border-radius: 12px;
+
+    background: #f0f1f3;
+
+    color: var(--dark);
+
+    font-size: 17px;
+}
+
+.stat-card:nth-child(1) .icon {
+    background: var(--green-soft);
+    color: var(--green-dark);
+}
+
+.stat-card:nth-child(2) .icon {
+    background: var(--blue-soft);
+    color: var(--blue);
+}
+
+.stat-card:nth-child(3) .icon {
+    background: var(--orange-soft);
+    color: var(--orange);
+}
+
+.stat-card:nth-child(4) .icon {
+    background: #f3efff;
+    color: #7c3aed;
+}
+
+/* ==============================
+   STAT TEXT
+============================== */
+
+.stat-card h3 {
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: var(--text-soft);
+
+    text-transform: uppercase;
+
+    letter-spacing: .8px;
+
+    margin-bottom: 5px;
+}
+
+.stat-card .value {
+    font-size: 23px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    letter-spacing: -.6px;
+}
+
+/* ==============================
+   DASHBOARD GRID
+============================== */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: minmax(0, 2fr) minmax(280px, .95fr);
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+/* ==============================
+   DASHBOARD CARD
+============================== */
+
+.dashboard-card {
+    position: relative;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+}
+
+.dashboard-card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* ==============================
+   CARD HEADER
+============================== */
+
+.dashboard-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.dashboard-card-header h3 {
+    font-size: 17px;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    letter-spacing: -.4px;
+}
+
+.dashboard-card-header p {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: var(--text-soft);
+}
+
+/* ==============================
+   CHART
+============================== */
+
+.chart-container {
+    position: relative;
+
+    width: 100%;
+
+    height: 315px;
+
+    padding-top: 5px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+
+    max-width: 100%;
+}
+
+/* ==============================
+   QUICK ACTIONS
+============================== */
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.quick-action {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 67px;
+
+    padding: 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: #fafafa;
+
+    transition: all .2s ease;
+}
+
+.quick-action:hover {
+    background: white;
+
+    border-color: #bfc3c8;
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow);
+}
+
+.quick-action .icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: var(--dark);
+
+    color: white;
+
+    font-size: 15px;
+}
+
+/* ==============================
+   TABLE
+============================== */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+thead th {
+    padding: 13px 15px;
+
+    background: #f7f8f9;
+
+    color: #70747c;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+}
+
+tbody td {
+    padding: 14px 15px;
+
+    color: #42464e;
+
+    border-bottom: 1px solid #eef0f2;
+
+    font-size: 12px;
+}
+
+tbody tr {
+    transition: background .15s ease;
+}
+
+tbody tr:hover {
+    background: #fafbfb;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==============================
+   BADGES
+============================== */
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.badge-success {
+    background: var(--green-soft);
+    color: #087a50;
+}
+
+.badge-warning {
+    background: var(--orange-soft);
+    color: #b66a00;
+}
+
+.badge-danger {
+    background: var(--red-soft);
+    color: #c62828;
+}
+
+.badge-info {
+    background: var(--blue-soft);
+    color: #405fc5;
+}
+
+.badge-dark {
+    background: var(--dark-2);
+    color: white;
+}
+
+/* ==============================
+   MONEY
+============================== */
+
+.text-income {
+    color: var(--green-dark) !important;
+    font-weight: 800;
+}
+
+.text-expense {
+    color: #d93636 !important;
+    font-weight: 800;
+}
+
+.text-muted {
+    color: var(--text-soft) !important;
+}
+
+/* ==============================
+   BUTTON
+============================== */
+
+.btn {
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 10px 15px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #292b31,
+            #17181c
+        );
+
+    box-shadow:
+        0 5px 13px rgba(0,0,0,.14);
+}
+
+.btn-primary:hover {
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+}
+
+.btn-success {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #19bd80,
+            #0e9d67
+        );
+
+    box-shadow:
+        0 5px 13px rgba(16,185,129,.18);
+}
+
+.btn-success:hover {
+    background: var(--green-dark);
+}
+
+.btn-secondary {
+    color: var(--gray-dark);
+
+    background: #f1f2f4;
+
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #e5e7e9;
+}
+
+.btn-danger {
+    color: white;
+
+    background: var(--red);
+}
+
+/* ==============================
+   FORM
+============================== */
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #41444a;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.form-control {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    background: white;
+
+    border: 1px solid #d8dadd;
+
+    border-radius: 9px;
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 13px;
+
+    transition: all .2s ease;
+}
+
+.form-control:hover {
+    border-color: #b5b8bd;
+}
+
+.form-control:focus {
+    border-color: var(--dark);
+
+    box-shadow:
+        0 0 0 3px rgba(24,25,29,.07);
+}
+
+.form-control::placeholder {
+    color: #a0a4aa;
+}
+
+/* ==============================
+   SEARCH
+============================== */
+
+.search-box {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 200px;
+}
+
+.search-box input {
+    width: 100%;
+
+    padding: 11px 13px 11px 38px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.search-box input:focus {
+    border-color: #858990;
+
+    box-shadow:
+        0 0 0 3px rgba(24,25,29,.06);
+}
+
+.search-box .icon {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #999da4;
+}
+
+/* ==============================
+   FILTER
+============================== */
+
+.filter-bar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 18px;
+}
+
+/* ==============================
+   ALERT
+============================== */
+
+.alert {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 14px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.alert-success {
+    color: #087a50;
+
+    background: var(--green-soft);
+
+    border: 1px solid #b9ecd9;
+}
+
+.alert-danger {
+    color: #c62828;
+
+    background: var(--red-soft);
+
+    border: 1px solid #ffd0d0;
+}
+
+.alert-warning {
+    color: #a56200;
+
+    background: var(--orange-soft);
+
+    border: 1px solid #ffe3ad;
+}
+
+/* ==============================
+   MODAL
+============================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(10,11,14,.55);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.2);
+
+    animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* ==============================
+   EMPTY STATE
+============================== */
+
+.empty-state {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: var(--text-soft);
+}
+
+.empty-state .icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 13px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #f0f1f3;
+
+    color: #747880;
+
+    font-size: 21px;
+}
+
+.empty-state h3 {
+    margin-bottom: 5px;
+
+    color: var(--gray-dark);
+
+    font-size: 14px;
+}
+
+.empty-state p {
+    font-size: 12px;
+}
+
+/* ==============================
+   DIVIDER
+============================== */
+
+.divider {
+    height: 1px;
+
+    margin: 20px 0;
+
+    background: var(--border);
+}
+
+/* ==============================
+   SCROLLBAR
+============================== */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e8eaec;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a5a9af;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777b82;
+}
+
+* {
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #a5a9af
+        #e8eaec;
+}
+
+/* ==============================
+   SELECTION
+============================== */
+
+::selection {
+    color: white;
+
+    background: var(--green-dark);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 1200px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+
+        padding: 15px;
+
+        box-shadow: none;
+    }
+
+    .sidebar .brand,
+    .sidebar .logo {
+        padding-bottom: 18px;
+    }
+
+    .sidebar ul {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 5px;
+    }
+
+    .sidebar li {
+        margin-bottom: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+
+        padding: 15px;
+    }
+
+    .top-navbar {
+        position: relative;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card {
+        min-height: auto;
+
+        padding: 25px;
+    }
+
+    .welcome-card h2 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .sidebar ul {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card {
+        padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .welcome-card h2 {
+        font-size: 20px;
+    }
+
+    .dashboard-card {
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .stat-card {
+        min-height: 145px;
+
+        padding: 17px;
+    }
+
+    .stat-card .value {
+        font-size: 21px;
+    }
+
+    .chart-container {
+        height: 240px;
+    }
+}
+
+/* ==============================
+   PRINT
+============================== */
+
+@media print {
+
+    .sidebar,
+    .top-navbar,
+    .btn,
+    .quick-actions {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .dashboard-card,
+    .stat-card {
+        box-shadow: none;
+
+        border: 1px solid #ddd;
+    }
+}
+/* =========================================================
+   THEME LAPORAN
+   ABU-ABU / HITAM / HIJAU
+   Berlaku untuk:
+   - Laporan Harian
+   - Laporan Bulanan
+   - Laporan Tahunan
+========================================================= */
+
+
+/* =========================================================
+   BACKGROUND HALAMAN LAPORAN
+========================================================= */
+
+body {
+    background:
+        linear-gradient(
+            135deg,
+            #f5f6f7 0%,
+            #eceef1 100%
+        ) !important;
+
+    color: #18191d !important;
+}
+
+
+/* =========================================================
+   HEADER / NAVBAR
+========================================================= */
+
+.top-navbar {
+    background: rgba(255,255,255,.92) !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+}
+
+.top-navbar h2 {
+    color: #18191d !important;
+}
+
+.top-navbar p {
+    color: #70747c !important;
+}
+
+
+/* =========================================================
+   JUDUL LAPORAN
+========================================================= */
+
+.report-header,
+.page-header,
+.content-header {
+    color: #18191d !important;
+}
+
+.report-header h1,
+.report-header h2,
+.page-header h1,
+.page-header h2,
+.content-header h1,
+.content-header h2 {
+    color: #18191d !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -.5px;
+}
+
+.report-header p,
+.page-header p,
+.content-header p {
+    color: #6b7078 !important;
+}
+
+
+/* =========================================================
+   ICON JUDUL LAPORAN
+========================================================= */
+
+.report-header .icon,
+.page-header .icon,
+.content-header .icon,
+.report-icon,
+.page-icon {
+    background: #292b31 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 11px !important;
+}
+
+
+/* =========================================================
+   SEMUA CARD LAPORAN
+========================================================= */
+
+.report-card,
+.report-container,
+.report-box,
+.filter-card,
+.filter-container,
+.report-filter,
+.summary-card,
+.report-summary,
+.report-stat {
+    background: #ffffff !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    border-radius: 17px !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+}
+
+
+/* =========================================================
+   FILTER TANGGAL / BULAN / TAHUN
+========================================================= */
+
+.filter-card,
+.filter-container,
+.report-filter {
+    padding: 22px !important;
+}
+
+.filter-card label,
+.filter-container label,
+.report-filter label {
+    color: #303239 !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* Input */
+
+.filter-card input,
+.filter-card select,
+.filter-container input,
+.filter-container select,
+.report-filter input,
+.report-filter select {
+    background: #fafafa !important;
+
+    color: #292b31 !important;
+
+    border: 1px solid #d8dade !important;
+
+    border-radius: 9px !important;
+}
+
+
+/* Input focus */
+
+.filter-card input:focus,
+.filter-card select:focus,
+.filter-container input:focus,
+.filter-container select:focus,
+.report-filter input:focus,
+.report-filter select:focus {
+    border-color: #292b31 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 0 0 3px rgba(41,43,49,.08) !important;
+}
+
+
+/* =========================================================
+   TOMBOL "TAMPILKAN"
+========================================================= */
+
+/* Menargetkan tombol biru */
+
+.report-filter .btn-primary,
+.filter-card .btn-primary,
+.filter-container .btn-primary,
+.report-container .btn-primary,
+.report-card .btn-primary,
+button.btn-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #303239,
+            #18191d
+        ) !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.14) !important;
+}
+
+.report-filter .btn-primary:hover,
+.filter-card .btn-primary:hover,
+.filter-container .btn-primary:hover,
+.report-container .btn-primary:hover,
+.report-card .btn-primary:hover,
+button.btn-primary:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #18191d,
+            #0d0e10
+        ) !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TOMBOL CETAK
+========================================================= */
+
+.report-filter .btn-secondary,
+.filter-card .btn-secondary,
+.filter-container .btn-secondary,
+.btn-print,
+.btn-cetak,
+.report-print {
+    background: #ffffff !important;
+
+    color: #40434a !important;
+
+    border: 1px solid #bfc2c7 !important;
+
+    border-radius: 10px !important;
+}
+
+.report-filter .btn-secondary:hover,
+.filter-card .btn-secondary:hover,
+.filter-container .btn-secondary:hover,
+.btn-print:hover,
+.btn-cetak:hover,
+.report-print:hover {
+    background: #f1f2f3 !important;
+
+    color: #18191d !important;
+
+    border-color: #92969d !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   KARTU TOTAL PENGHASILAN
+========================================================= */
+
+/* Mengubah kartu biru menjadi dark */
+
+.report-summary:first-child,
+.summary-card:first-child,
+.report-stat:first-child,
+.total-income-card,
+.income-card {
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(24,182,122,.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #292b31,
+            #17181c
+        ) !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.14) !important;
+}
+
+
+/* Judul total penghasilan */
+
+.report-summary:first-child *,
+.summary-card:first-child *,
+.report-stat:first-child *,
+.total-income-card *,
+.income-card * {
+    color: #ffffff !important;
+}
+
+
+/* Nilai rupiah */
+
+.report-summary:first-child .value,
+.summary-card:first-child .value,
+.report-stat:first-child .value,
+.total-income-card .value,
+.income-card .value {
+    color: #ffffff !important;
+
+    font-size: 30px !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   KARTU JUMLAH TRANSAKSI
+========================================================= */
+
+.report-summary:nth-child(2),
+.summary-card:nth-child(2),
+.report-stat:nth-child(2),
+.transaction-card {
+    background: #ffffff !important;
+
+    color: #18191d !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+}
+
+.report-summary:nth-child(2) *,
+.summary-card:nth-child(2) *,
+.report-stat:nth-child(2) *,
+.transaction-card * {
+    color: #303239 !important;
+}
+
+
+/* Angka transaksi */
+
+.report-summary:nth-child(2) .value,
+.summary-card:nth-child(2) .value,
+.report-stat:nth-child(2) .value,
+.transaction-card .value {
+    color: #18191d !important;
+
+    font-size: 30px !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   ICON PADA KARTU RINGKASAN
+========================================================= */
+
+.report-summary .icon,
+.summary-card .icon,
+.report-stat .icon {
+    background: #f0f1f3 !important;
+
+    color: #292b31 !important;
+
+    border-radius: 12px !important;
+}
+
+
+/* Icon kartu pendapatan */
+
+.report-summary:first-child .icon,
+.summary-card:first-child .icon,
+.report-stat:first-child .icon {
+    background: rgba(255,255,255,.12) !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   DETAIL TRANSAKSI
+========================================================= */
+
+.detail-transaksi,
+.transaction-detail,
+.report-detail {
+    background: #ffffff !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+}
+
+.detail-transaksi h2,
+.detail-transaksi h3,
+.transaction-detail h2,
+.transaction-detail h3,
+.report-detail h2,
+.report-detail h3 {
+    color: #18191d !important;
+}
+
+.detail-transaksi p,
+.transaction-detail p,
+.report-detail p {
+    color: #6b7078 !important;
+}
+
+
+/* =========================================================
+   TABLE LAPORAN
+========================================================= */
+
+.report-table,
+.detail-transaksi table,
+.transaction-detail table,
+.report-detail table {
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    border: 1px solid #e0e2e5;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+
+/* HEADER TABLE
+   Biru -> abu gelap
+*/
+
+.report-table thead th,
+.detail-transaksi thead th,
+.transaction-detail thead th,
+.report-detail thead th {
+    background:
+        linear-gradient(
+            135deg,
+            #303239,
+            #202126
+        ) !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    padding: 14px 15px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+
+/* BODY TABLE */
+
+.report-table tbody td,
+.detail-transaksi tbody td,
+.transaction-detail tbody td,
+.report-detail tbody td {
+    background: #ffffff !important;
+
+    color: #454950 !important;
+
+    border-bottom: 1px solid #eef0f2 !important;
+
+    padding: 14px 15px;
+
+    font-size: 13px;
+}
+
+
+/* Hover */
+
+.report-table tbody tr:hover td,
+.detail-transaksi tbody tr:hover td,
+.transaction-detail tbody tr:hover td,
+.report-detail tbody tr:hover td {
+    background: #f5faf7 !important;
+}
+
+
+/* Baris terakhir */
+
+.report-table tbody tr:last-child td,
+.detail-transaksi tbody tr:last-child td,
+.transaction-detail tbody tr:last-child td,
+.report-detail tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+
+/* =========================================================
+   SEMUA WARNA BIRU DI DALAM LAPORAN
+========================================================= */
+
+/* Text biru */
+
+.report-container .text-primary,
+.report-card .text-primary,
+.report-detail .text-primary,
+.detail-transaksi .text-primary {
+    color: #292b31 !important;
+}
+
+
+/* Background biru */
+
+.report-container .bg-primary,
+.report-card .bg-primary,
+.report-detail .bg-primary,
+.detail-transaksi .bg-primary {
+    background: #292b31 !important;
+}
+
+
+/* Border biru */
+
+.report-container .border-primary,
+.report-card .border-primary,
+.report-detail .border-primary,
+.detail-transaksi .border-primary {
+    border-color: #292b31 !important;
+}
+
+
+/* Link biru */
+
+.report-container a,
+.report-card a,
+.report-detail a,
+.detail-transaksi a {
+    color: #454950 !important;
+}
+
+.report-container a:hover,
+.report-card a:hover,
+.report-detail a:hover,
+.detail-transaksi a:hover {
+    color: #0f9965 !important;
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.report-container .badge-info,
+.report-card .badge-info,
+.report-detail .badge-info {
+    background: #f0f1f3 !important;
+
+    color: #454950 !important;
+}
+
+.report-container .badge-success,
+.report-card .badge-success,
+.report-detail .badge-success {
+    background: #e8f8f1 !important;
+
+    color: #087a50 !important;
+}
+
+.report-container .badge-warning,
+.report-card .badge-warning,
+.report-detail .badge-warning {
+    background: #fff7e6 !important;
+
+    color: #a56200 !important;
+}
+
+.report-container .badge-danger,
+.report-card .badge-danger,
+.report-detail .badge-danger {
+    background: #fff0f0 !important;
+
+    color: #c62828 !important;
+}
+
+
+/* =========================================================
+   PENDAPATAN
+========================================================= */
+
+.income,
+.income-value,
+.total-income,
+.income-total {
+    color: #0f9965 !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.total,
+.total-value,
+.report-total {
+    color: #18191d !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.pagination a,
+.pagination button {
+    background: #ffffff !important;
+
+    color: #4b4f56 !important;
+
+    border: 1px solid #dedfe2 !important;
+}
+
+.pagination a:hover,
+.pagination button:hover {
+    background: #f0f1f3 !important;
+
+    color: #18191d !important;
+}
+
+
+/* Halaman aktif */
+
+.pagination .active,
+.pagination a.active,
+.pagination button.active {
+    background: #292b31 !important;
+
+    color: #ffffff !important;
+
+    border-color: #292b31 !important;
+}
+
+
+/* =========================================================
+   EXPORT / DOWNLOAD
+========================================================= */
+
+.btn-export,
+.btn-excel,
+.btn-download {
+    background: #e8f8f1 !important;
+
+    color: #087a50 !important;
+
+    border: 1px solid #b9ecd9 !important;
+}
+
+.btn-export:hover,
+.btn-excel:hover,
+.btn-download:hover {
+    background: #d6f3e7 !important;
+
+    color: #056c47 !important;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.report-container .empty-state,
+.report-card .empty-state,
+.report-detail .empty-state {
+    color: #7a7e85 !important;
+}
+
+.report-container .empty-state .icon,
+.report-card .empty-state .icon,
+.report-detail .empty-state .icon {
+    background: #f0f1f3 !important;
+
+    color: #777b82 !important;
+}
+
+
+/* =========================================================
+   LAPORAN HARIAN
+   AKSEN HIJAU
+========================================================= */
+
+.daily-report .report-header,
+.laporan-harian .report-header {
+    border-left: 4px solid #18b67a !important;
+
+    padding-left: 14px;
+}
+
+.daily-report .report-icon,
+.laporan-harian .report-icon {
+    background: #e8f8f1 !important;
+
+    color: #0f9965 !important;
+}
+
+
+/* =========================================================
+   LAPORAN BULANAN
+   AKSEN ABU-ABU
+========================================================= */
+
+.monthly-report .report-header,
+.laporan-bulanan .report-header {
+    border-left: 4px solid #555960 !important;
+
+    padding-left: 14px;
+}
+
+.monthly-report .report-icon,
+.laporan-bulanan .report-icon {
+    background: #f0f1f3 !important;
+
+    color: #303239 !important;
+}
+
+
+/* =========================================================
+   LAPORAN TAHUNAN
+   AKSEN ABU GELAP
+========================================================= */
+
+.yearly-report .report-header,
+.laporan-tahunan .report-header {
+    border-left: 4px solid #292b31 !important;
+
+    padding-left: 14px;
+}
+
+.yearly-report .report-icon,
+.laporan-tahunan .report-icon {
+    background: #f0f1f3 !important;
+
+    color: #292b31 !important;
+}
+
+
+/* =========================================================
+   CHART LAPORAN
+========================================================= */
+
+.report-chart,
+.report-chart-container {
+    background: #ffffff !important;
+
+    border: 1px solid #e1e3e6 !important;
+
+    border-radius: 16px !important;
+
+    padding: 20px !important;
+
+    box-shadow:
+        0 5px 20px rgba(25,28,35,.06) !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .report-summary,
+    .summary-card,
+    .report-stat {
+        margin-bottom: 15px;
+    }
+
+    .report-table,
+    .detail-transaksi table,
+    .transaction-detail table,
+    .report-detail table {
+        min-width: 650px;
+    }
+
+    .filter-card,
+    .filter-container,
+    .report-filter {
+        padding: 16px !important;
+    }
+}
